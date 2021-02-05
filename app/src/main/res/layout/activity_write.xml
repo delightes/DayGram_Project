@@ -28,15 +28,28 @@
         android:layout_marginLeft="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginRight="40dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="100dp"
+        android:background="@null"
         android:ems="10"
         android:fontFamily="@font/maru"
         android:inputType="textMultiLine"
         android:scrollHorizontally="false"
-        android:background="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/today" />
+
+    <ImageButton
+        android:id="@+id/done_btn"
+        android:layout_width="81dp"
+        android:layout_height="53dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="40dp"
+        android:onClick="onClick"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/done_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
