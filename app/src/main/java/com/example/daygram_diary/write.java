@@ -19,7 +19,6 @@ public class write extends AppCompatActivity {
 
     /* DB - 변수 선언 */
     long ID = 0;
-    Date date_str;
     String date_db;
     EditText content;
     String content_db;
@@ -40,7 +39,7 @@ public class write extends AppCompatActivity {
         today = (TextView) findViewById(R.id.today); // 현재 날짜
         my_write = (EditText) findViewById(R.id.my_write); // 사용자가 작성한 일기
         done_btn = (ImageButton) findViewById(R.id.done_btn);
-        done_btn.setOnClickListener((View.OnClickListener) this);
+        //done_btn.setOnClickListener((View.OnClickListener) this);
 
         long now = System.currentTimeMillis();
         Date date = new Date(now);
@@ -68,19 +67,26 @@ public class write extends AppCompatActivity {
                 {
                     String tempDate = iCursor.getString(iCursor.getColumnIndex("date"));
                     String tempContent = iCursor.getString(iCursor.getColumnIndex("content"));
-                    if (tempDate == (nowDay.toString()) && tempContent != content.toString()) // 같은 날에 만들어지면 UPDATE
+
+                    date_db = nowDay; //형변환
+                    content_db = content.getText().toString().trim(); //형변환
+                    mDbOpenHelper.insertColumn(date_db, content_db);
+                    break;
+
+                    /*
+                    if (tempDate == nowDay && tempContent != content.getText().toString()) // 같은 날에 만들어지면 UPDATE
                     {
-                        content_db = content.toString();
-                        mDbOpenHelper.updateColumn(ID, date_db, content_db);
+                        content_db = content.getText().toString().trim();
+                        mDbOpenHelper.updateColumn(ID, nowDay, content_db);
                     }
                     else //다른 날에 만들어지면 INSERT
                     {
                         ID++;
-                        date_db = nowDay.toString(); //형변환
-                        content_db = content.toString(); //형변환
+                        date_db = nowDay; //형변환
+                        content_db = content.getText().toString(); //형변환
                         mDbOpenHelper.insertColumn(date_db, content_db);
                         break;
-                    }
+                    }*/
                 }
 
 

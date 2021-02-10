@@ -100,9 +100,9 @@ public class DbOpenHelper {
         return mDB.delete(DataBase.CreateDB._TABLENAME, "_id="+id, null) > 0;
     }
 
-    // 7. 데이터 삭제 (DELETE 구문) - 해당 날짜만 가져와서 삭제!
-    public boolean deleteColumn(String day_date){
-        return mDB.delete(DataBase.CreateDB._TABLENAME, "date="+day_date, null) > 0;
+    // 7. 데이터 삭제 (DELETE 구문) - 전부 삭제
+    public boolean deleteAll(){
+        return mDB.delete(DataBase.CreateDB._TABLENAME, null, null) > 0;
     }
 
     // 8. ID 컬럼 얻어오기

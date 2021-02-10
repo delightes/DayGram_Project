@@ -11,7 +11,7 @@ public final class DataBase {
         public static final String _TABLENAME = "diaryTbl";
 
         //1. 내부 데이터 베이스와 테이블 생성
-        public static final String _CREATE = "CREATE TABLE IF NOT EXISTS " + _TABLENAME + "("
+        public static final String _CREATE = "CREATE TABLE IF NOT EXISTS " + _TABLENAME + "(" //CREATE 이전까지는 다 지워야함
                 +_ID+" integer primary key autoincrement, " //다이어리 구분 아이디 - 정수형 자동 증가
                 +DATE+" TEXT NOT NULL, " //날짜 문자형
                 +CONTENT + " TEXT NOT NULL);"; //내용 문자형

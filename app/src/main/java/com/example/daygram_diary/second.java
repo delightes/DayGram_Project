@@ -22,13 +22,13 @@ import java.util.Locale;
 public class second extends AppCompatActivity {
 
     TextView second_today;
-    boolean first=true;
+    boolean first = true;
 
     private static final String TAG = "TestDataBase";
     private DbOpenHelper mDbOpenHelper;
     private Cursor mCursor;
     private InfoClass mInfoClass;
-    private ArrayList <InfoClass> mInfoArray;
+    private ArrayList<InfoClass> mInfoArray;
     private CustomAdapter mAdapter;
 
     String sort = "date"; //지워도 될듯
@@ -47,7 +47,6 @@ public class second extends AppCompatActivity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("| MMM | yyyy |", new Locale("en", "US"));
         String nowDay = simpleDateFormat.format(date);
         second_today.setText(nowDay);
-
         setLayout();
 
         // 2. 데이터 베이스 생성 및 오픈
@@ -58,9 +57,12 @@ public class second extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
+        /* 너무 보기 힘들어서 일단 초기화 - 없애야함
+        mDbOpenHelper.deleteAll();*/
+
         // 임의 값 입력력
-        mDbOpenHelper.insertColumn("2021/02/07", "일기 앱의 데이터베이스 구축을 시작해보았다!");
-        mDbOpenHelper.insertColumn("2021/02/08", "데이터 베이스 구축이 굉장히 어렵다ㅠㅠ");
+        mDbOpenHelper.insertColumn("날짜", "테스트");
 
         // ArrayList 초기화
         mInfoArray = new ArrayList<InfoClass>();
@@ -128,30 +130,6 @@ public class second extends AppCompatActivity {
     }
 
     /*
-     * 추가 버튼 클릭 메소드 - 이건 Write.java에서 해야할 것 같음!
-     *
-     * @param v
-
-    public void btnAdd(View v) {
-        //추가를 누를 경우 EditText에 있는 String 값을 다 가져옴
-        mDbOpenHelper.insertColumn(
-                mEditTexts[Constants.NAME].getText().toString().trim(),
-                mEditTexts[Constants.CONTACT].getText().toString().trim(),
-                mEditTexts[Constants.EMAIL].getText().toString().trim()
-        );
-        //ArrayList 내용 삭제
-        mInfoArr.clear();
-
-        doWhileCursorToArray();
-
-        mAdapter.setArrayList(mInfoArr);
-        mAdapter.notifyDataSetChanged();
-        //Cursor 닫기
-        mCursor.close();
-    }
-    */
-
-    /**
      * 레이아웃 세팅하는 메소드
      */
     private ListView mListView;
@@ -175,7 +153,6 @@ public class second extends AppCompatActivity {
     }
 
 }
-
         //여기서부터 다시 수정
         /* 2. DB에 생성된 일기 관리할 데이터 리스트 생성.
         final ArrayList<String> diaries = new ArrayList<String> ();
@@ -231,4 +208,4 @@ public class second extends AppCompatActivity {
             arrayData.add(Result);
             arrayIndex.add(tempIndex);
         }
-         */
+         */ //여기까진 내비둬야함
