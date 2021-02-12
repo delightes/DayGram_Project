@@ -62,7 +62,7 @@ public class second extends AppCompatActivity {
         mDbOpenHelper.deleteAll();*/
 
         // 임의 값 입력력
-        mDbOpenHelper.insertColumn("날짜", "테스트");
+        mDbOpenHelper.insertColumn(" ", " ");
 
         // ArrayList 초기화
         mInfoArray = new ArrayList<InfoClass>();

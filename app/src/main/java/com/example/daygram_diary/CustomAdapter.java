@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -45,6 +47,11 @@ public class CustomAdapter extends BaseAdapter {
             v = mInflater.inflate(R.layout.activity_second, null);
             holder.date = (TextView)v.findViewById(R.id.date_view);
             holder.content = (TextView)v.findViewById(R.id.content_view);
+            holder.btn = (ImageButton) v.findViewById(R.id.plus_btn);
+            holder.today = (TextView) v.findViewById(R.id.second_today);
+
+            holder.btn.setVisibility(v.GONE);
+            holder.today.setVisibility(v.GONE);
 
             v.setTag(holder);
         } else {
@@ -75,6 +82,8 @@ public class CustomAdapter extends BaseAdapter {
      * ViewHolder Class 생성
      */
     private class ViewHolder {
+        ImageButton btn;
+        TextView today;
         TextView date;
         TextView content;
     }
