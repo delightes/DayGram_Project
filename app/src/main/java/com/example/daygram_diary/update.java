@@ -14,7 +14,15 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Calendar;
 
-public class write extends AppCompatActivity {
+public class update extends AppCompatActivity {
+
+
+    //실제로 사용
+    Calendar cal;
+    TextView today_update;
+    EditText my_write_update;
+    ImageButton done_btn_update;
+
 
     /* DB - 변수 선언 */
     long ID = 0;
@@ -25,10 +33,7 @@ public class write extends AppCompatActivity {
     private DbOpenHelper mDbOpenHelper;
 
     /* UI */
-    Calendar cal;
-    TextView today;
-    EditText my_write;
-    ImageButton done_btn;
+
     String nowDay;
 
     @Override
@@ -37,10 +42,20 @@ public class write extends AppCompatActivity {
         setContentView(R.layout.activity_write);
 
         /* UI */
-        today = (TextView) findViewById(R.id.today_update); // 현재 날짜
-        my_write = (EditText) findViewById(R.id.my_write_update); // 사용자가 작성한 일기
-        done_btn = (ImageButton) findViewById(R.id.done_btn_update);
+        today_update = (TextView) findViewById(R.id.today_update); //가져온 날짜
+        my_write_update = (EditText) findViewById(R.id.my_write_update); //사용자가 작성할 일기
+        done_btn_update = (ImageButton) findViewById(R.id.done_btn_update);
 
+        //1. today_update set
+        cal = Calendar.getInstance();
+        String year = Integer.toString(cal.get(Calendar.YEAR));
+
+    }
+}
+
+        /*
+        //누른 거 데이터베이스 행만 그대로 가져오기
+        mDbOpenHelper.insertColumn(day_db, date_db, content_db);
 
         cal = Calendar.getInstance(); //캘린더에서 가져오기
         long now = System.currentTimeMillis();
@@ -49,7 +64,7 @@ public class write extends AppCompatActivity {
         nowDay = simpleDateFormat.format(date);
         today.setText(nowDay);
 
-        /* DB */
+        /* DB
         // 1. 액티비티에 있는 값 가져오기
         done_btn  = (ImageButton) findViewById(R.id.done_btn_update);
         content = (EditText) findViewById(R.id.my_write_update);
@@ -62,21 +77,21 @@ public class write extends AppCompatActivity {
 
     public void onClick(View view) {
         switch (view.getId()) {
-            /* 완료 버튼 눌리면 */
-            case R.id.done_btn_update:
+             완료 버튼 눌리면
+           // case R.id.done_btn_update:
                 /*Cursor iCursor = mDbOpenHelper.selectColumns();
                 while(iCursor.moveToNext())
                 {
                     String tempDay = iCursor.getString(iCursor.getColumnIndex("day"));
                     String tempDate = iCursor.getString(iCursor.getColumnIndex("date"));
                     String tempContent = iCursor.getString(iCursor.getColumnIndex("content"));
-                */
-                    int date = cal.get(Calendar.DAY_OF_WEEK);
-                    day_db = day_print(date); //요일 원하는 형태로 바꿈
-                    date_db = " "+cal.get(Calendar.DATE)+" ";
-                    content_db = content.getText().toString().trim(); //형변환
-                    mDbOpenHelper.insertColumn(day_db, date_db, content_db, nowDay);
-                    break;
+
+                int date = cal.get(Calendar.DAY_OF_WEEK);
+                day_db = day_print(date); //요일 원하는 형태로 바꿈
+                date_db = " "+cal.get(Calendar.DATE)+" ";
+                content_db = content.getText().toString().trim(); //형변환
+                mDbOpenHelper.insertColumn(day_db, date_db, content_db);
+                break;
 
                     /*
                     if (tempDate == nowDay && tempContent != content.getText().toString()) // 같은 날에 만들어지면 UPDATE
@@ -91,9 +106,9 @@ public class write extends AppCompatActivity {
                         content_db = content.getText().toString(); //형변환
                         mDbOpenHelper.insertColumn(date_db, content_db);
                         break;
-                    }*/
-                }
-        /* UI - 이전 화면으로 전환 */
+                    }
+        }
+        /* UI - 이전 화면으로 전환
         Intent intent = new Intent(getApplicationContext(), second.class);
         startActivity(intent);
 
@@ -130,3 +145,4 @@ public class write extends AppCompatActivity {
         return day_return;
     }
 }
+*/

@@ -11,13 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Content_list"></activity>
 
         <meta-data
             android:name="android.max_aspect"
             android:value="2.1" />
 
         <activity android:name=".write" />
+        <activity android:name=".update" />
         <activity android:name=".second" />
         <activity android:name=".MainActivity">
             <intent-filter>

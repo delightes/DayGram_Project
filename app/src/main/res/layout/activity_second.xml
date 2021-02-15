@@ -7,6 +7,20 @@
     android:background="#F2F1ED"
     tools:context=".second">
 
+    <ListView
+        android:id="@+id/text_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/plus_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ListView>
+
     <ImageButton
         android:id="@+id/plus_btn"
         android:layout_width="0dp"
@@ -37,38 +51,5 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <!-- 왜 필요한지 모르겠음 -->
-    <TextView
-        android:id="@+id/date_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="33dp"
-        android:layout_marginLeft="33dp"
-        android:layout_marginTop="41dp"
-        android:text="　"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/content_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="37dp"
-        android:layout_marginLeft="37dp"
-        android:text="　"
-        app:layout_constraintBaseline_toBaselineOf="@+id/date_view"
-        app:layout_constraintStart_toEndOf="@+id/date_view" />
-
-
-    <ListView
-        android:id="@+id/text_list"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/plus_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/content_view"
-        app:layout_constraintVertical_bias="1.0"></ListView>
 </androidx.constraintlayout.widget.ConstraintLayout>

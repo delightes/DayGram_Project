@@ -59,15 +59,19 @@ public class DbOpenHelper {
 
     /**
      *  데이터베이스에 사용자가 입력한 값을 추가가하는 소드
+     * @param day           요일
      * @param date          날짜
      * @param content       일기 내용
+     * @param time          시간
      * @return              SQLiteDataBase에 입력한 값을 insert
      */
 
-    public long insertColumn (String date, String content) {
+    public long insertColumn (String day, String date, String content, String time) {
         ContentValues v = new ContentValues();
+        v.put(DataBase.CreateDB.DAY, day);
         v.put(DataBase.CreateDB.DATE, date);
         v.put(DataBase.CreateDB.CONTENT, content);
+        v.put(DataBase.CreateDB.TIME, time);
         return mDB.insert(DataBase.CreateDB._TABLENAME, null, v);
     }
 
@@ -82,15 +86,19 @@ public class DbOpenHelper {
     /**
      *  데이터베이스에 사용자가 입력한 값을 추가가하는 소드
      * @param id           데이터베이스 아이디
+     * @param day           요일
      * @param date          날짜
      * @param content       일기 내용
+     * @param time          시간
      * @return              SQLiteDataBase에 입력한 값을 insert
      */
 
-    public boolean updateColumn(long id, String date, String content){
+    public boolean updateColumn(long id, String day, String date, String content, String time){
         ContentValues values = new ContentValues();
+        values.put(DataBase.CreateDB.DAY, day);
         values.put(DataBase.CreateDB.DATE, date);
         values.put(DataBase.CreateDB.CONTENT, content);
+        values.put(DataBase.CreateDB.TIME, time);
 
         return mDB.update(DataBase.CreateDB._TABLENAME, values, "_id=" + id, null) > 0;
     }
@@ -115,13 +123,13 @@ public class DbOpenHelper {
         return c;
     }
 
-    // 9. 날짜로 검색하기 (rawQuery)
-    public Cursor getMatchDate(String date) {
-        Cursor c = mDB.rawQuery( "Select * from address where date" + "'" + date + "'", null);
+    // 9. 시간 값으로 검색하기 (rawQuery)
+    public Cursor getMatchAll(String time) {
+        Cursor c = mDB.rawQuery( "Select * from "+DataBase.CreateDB._TABLENAME+"where time" + "'" + time + "'", null);
         return c;
     }
 
-    // + sort by column
+ // + sort by column
     public Cursor sortColumn(String sort){
         Cursor c = mDB.rawQuery( "SELECT * FROM usertable ORDER BY " + sort + ";", null);
         return c;
