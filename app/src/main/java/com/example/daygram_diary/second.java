@@ -30,6 +30,7 @@ public class second extends AppCompatActivity {
     private ArrayList<InfoClass> mInfoArray;
     private CustomAdapter mAdapter;
     private Cursor CheckCursor;
+    private Cursor PutCursor;
 
     /*
      * 레이아웃 세팅하는 메소드
@@ -58,7 +59,7 @@ public class second extends AppCompatActivity {
         setLayout(); //리스트뷰 실제로 담음.
 
         // 2. 데이터 베이스 생성 및 오픈
-        Log.d(TAG, "=============================새로 시작했는데요. 데이터 베이스는 이제 열었어요==========================");
+        Log.d(TAG, "****************************데이터 베이스 열음****************************");
         mDbOpenHelper = new DbOpenHelper(this);
         try {
             mDbOpenHelper.open();
@@ -70,11 +71,11 @@ public class second extends AppCompatActivity {
         CheckCursor = mDbOpenHelper.selectColumns();
         while (CheckCursor.moveToNext()) {
             //-커서 내용 로그에 출력
-            Log.d(TAG, "(체크) 아이디는 " + CheckCursor.getInt(0));
-            Log.d(TAG, "(체크) 요일은" + CheckCursor.getString(3));
-            Log.d(TAG, "(체크) 내용은 " + CheckCursor.getString(2));
+            Log.d(TAG, ">>>>>>>>>> 아이디 : " + CheckCursor.getInt(0)+" <<<<<<<<<<");
+            Log.d(TAG, ">>>>>>>>>> 날짜 : " + CheckCursor.getString(4)+" <<<<<<<<<<");
+            Log.d(TAG, ">>>>>>>>>> 내용 :" + CheckCursor.getString(3)+" <<<<<<<<<<");
         }
-        Log.d(TAG, "===============================이제 끝이에요===============================");
+        Log.d(TAG, "===============================데이터베이스 닫음===============================");
 
         // ArrayList 초기화
         mInfoArray = new ArrayList<InfoClass>();
@@ -93,47 +94,21 @@ public class second extends AppCompatActivity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i(TAG, "조회해야 할 아이디="+position);
+                Log.i(TAG, "*************조회 아이디***************="+position+1);
 
                 Intent intent = new Intent(getApplicationContext(), update.class);
-                /* putExtra의 첫 값은 식별 태그, 뒤에는 다음 화면에 넘길 값 */ //수정해야함
-                intent.putExtra("Id","보낼값");
-                intent.putExtra("Date", "보낼값");
-                intent.putExtra("Content", "보낼 값");
-                intent.putExtra("Time", "보낼 값");
+                intent.putExtra("Id", position+1);
+                intent.putExtra("Content", Select_content(PutCursor,position+1));
+                intent.putExtra("Day",Select_day(PutCursor,position+1));
+                intent.putExtra("Date", Select_date(PutCursor,position+1));
+                intent.putExtra("Content", Select_content(PutCursor,position+1));
+                intent.putExtra("Time", Select_time(PutCursor,position+1));
                 startActivity(intent);
 
                 overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-                // 첫번째 인자 : 새로 불리는 액티비티의 효과
-                // 두번째 인자 : 현재 액티비티의 효과
+                mDbOpenHelper.close();
             }
         });
-        /* 꾹 눌렀을 때 삭제 해줌
-        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i(TAG, "지울 위치 position = " + position);
-
-                //리스트뷰의 포지션은 0부터 시작하므로 1을 더함
-                boolean result = mDbOpenHelper.deleteColumn(position + 1);
-                Log.i(TAG, "지운 결과 result = " + result);
-
-                if (result) {
-                    //정상적인 포지션을 가져왔을 경우 ArrayList의 포지션과 일치하는 index 정보를 삭제
-                    mInfoArray.remove(position);
-
-                    //어댑터에 ArrayList를 다시 세팅 후 값이 변경됬다고 어댑터에 알림
-                    mAdapter.setArrayList(mInfoArray);
-                    mAdapter.notifyDataSetChanged();
-                }
-                else {
-                    //잘못된 포지션을 가져왔을 경우 다시 확인 요청
-                    Toast.makeText(second.this, "인덱스가 이상합니다!", Toast.LENGTH_SHORT).show();
-                }
-                return false;
-            }
-        });
-    */
     }
 
     // 5. do While 구문으로 커서 내용을 -> InfoClass 에 입력 -> 이를 ArrayList 에 추가 !
@@ -142,8 +117,6 @@ public class second extends AppCompatActivity {
         mCursor = null;
         //-DB에 있는 모든 행을 커서에 가져옴
         mCursor = mDbOpenHelper.selectColumns();
-        //컬럼의 갯수 확인
-        Log.i(TAG, "Count = " + mCursor.getCount());
 
         while (mCursor.moveToNext()) {
             //-커서 내용을 InfoClass 에 입력
@@ -174,4 +147,29 @@ public class second extends AppCompatActivity {
 
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
     }
+
+    public String Select_day (Cursor cursor, int id)
+    {
+        cursor = mDbOpenHelper.getColumn(id);
+        return cursor.getString(1);
+    }
+
+    public String Select_date (Cursor cursor, int id)
+    {
+        cursor = mDbOpenHelper.getColumn(id);
+        return cursor.getString(2);
+    }
+
+    public String Select_content (Cursor cursor, int id)
+    {
+        cursor = mDbOpenHelper.getColumn(id);
+        return cursor.getString(3);
+    }
+
+    public String Select_time (Cursor cursor, int id)
+    {
+        cursor = mDbOpenHelper.getColumn(id);
+        return cursor.getString(4);
+    }
+
 }

@@ -114,7 +114,7 @@ public class DbOpenHelper {
     }
 
     // 8. ID 컬럼 얻어오기
-    public Cursor getColumn(long id) {
+    public Cursor getColumn(int id) {
         Cursor c = mDB.query(DataBase.CreateDB._TABLENAME, null,
                 "_id="+id, null, null, null, null);
         //받아온 컬럼이 null이 아니고 0번째가 아닐경우 제일 처음으로 보냄
@@ -124,14 +124,17 @@ public class DbOpenHelper {
     }
 
     // 9. 시간 값으로 검색하기 (rawQuery)
-    public Cursor getMatchAll(String time) {
-        Cursor c = mDB.rawQuery( "Select * from "+DataBase.CreateDB._TABLENAME+"where time" + "'" + time + "'", null);
+    public Cursor getMatchTime(String time) {
+        Cursor c = mDB.rawQuery( "Select * from "+DataBase.CreateDB._TABLENAME+" where time == " + "'" + time + "'", null);
+        //받아온 컬럼이 null이 아니고 0번째가 아닐경우 제일 처음으로 보냄
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
         return c;
     }
 
  // + sort by column
     public Cursor sortColumn(String sort){
-        Cursor c = mDB.rawQuery( "SELECT * FROM usertable ORDER BY " + sort + ";", null);
+        Cursor c = mDB.rawQuery( "SELECT * FROM"+DataBase.CreateDB._TABLENAME+" ORDER BY " + sort + ";", null);
         return c;
     }
 }
