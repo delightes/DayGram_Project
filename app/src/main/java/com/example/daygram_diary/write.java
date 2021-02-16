@@ -19,8 +19,7 @@ import java.util.Calendar;
 public class write extends AppCompatActivity {
 
     /* DB - 변수 선언 */
-    String date_db;
-    String day_db;
+    String date_db, day_db;
     EditText content;
     String content_db;
     private DbOpenHelper mDbOpenHelper;
@@ -28,7 +27,6 @@ public class write extends AppCompatActivity {
     /* UI */
     Calendar cal;
     TextView today;
-    EditText my_write;
     ImageButton done_btn;
     String nowDay;
     Cursor iCursor;
@@ -42,9 +40,7 @@ public class write extends AppCompatActivity {
 
         /* UI */
         today = (TextView) findViewById(R.id.today); // 현재 날짜
-        my_write = (EditText) findViewById(R.id.my_write); // 사용자가 작성한 일기
-        done_btn = (ImageButton) findViewById(R.id.done_btn);
-
+        done_btn = (ImageButton) findViewById(R.id.done_btn); // done 버튼
 
         cal = Calendar.getInstance(); //캘린더에서 가져오기
         long now = System.currentTimeMillis();
@@ -61,48 +57,39 @@ public class write extends AppCompatActivity {
         // 2. 실제 데이터 베이스 오픈
         mDbOpenHelper = new DbOpenHelper(this);
         mDbOpenHelper.open();
-
     }
 
-    public void onClick(View view) {
-        switch (view.getId())
+    public void onClick(View view) { // 완료 버튼 눌리면
+        Log.d("Test","왜 안되세요ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ");
+        jCursor = mDbOpenHelper.selectColumns();
+        count = jCursor.getCount();
+        Log.d("Test","개수 :::::::::::::::::::::::::::::::::::::::::: "+count+" ");
+        if (count == 0) {
+            //한개도 없으면
+            int date = cal.get(Calendar.DAY_OF_WEEK);
+            day_db = day_print(date); //요일 원하는 형태로 바꿈
+            date_db = " "+cal.get(Calendar.DATE)+" ";
+            content_db = content.getText().toString().trim(); //형변환
+            mDbOpenHelper.insertColumn(day_db, date_db, content_db, nowDay);
+        }
+        else //하나라도 있으면
         {
-            /* 완료 버튼 눌리면 */
-            case R.id.done_btn:
-                Log.d("Test","왜 안되세요ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ");
-                jCursor = mDbOpenHelper.selectColumns();
-                count = jCursor.getCount();
-                Log.d("Test","개수 :::::::::::::::::::::::::::::::::::::::::: "+count+" ");
+            if(nowDay.equals(mDbOpenHelper.getMatchTime(nowDay).getString(4))) {
+                //DB에 오늘 날짜와 똑같은 날짜가 있으면
+                iCursor = mDbOpenHelper.getMatchTime(nowDay);
 
-                if (count == 0) //한개도 없으면
-                {
-                    int date = cal.get(Calendar.DAY_OF_WEEK);
-                    day_db = day_print(date); //요일 원하는 형태로 바꿈
-                    date_db = " "+cal.get(Calendar.DATE)+" ";
-                    content_db = content.getText().toString().trim(); //형변환
-                    mDbOpenHelper.insertColumn(day_db, date_db, content_db, nowDay);
-                }
-                else //하나라도 있으면
-                {
-                    if(nowDay.equals(mDbOpenHelper.getMatchTime(nowDay).getString(4))) //DB에 오늘 날짜와 똑같은 날짜가 있으면
-                    {
-                        iCursor = mDbOpenHelper.getMatchTime(nowDay);
-
-                        //업데이트하기
-                        mDbOpenHelper.updateColumn(iCursor.getInt(0), iCursor.getString(1),
-                                iCursor.getString(2), content.getText().toString().trim(), nowDay);
-                    }
-                    else //같은 날짜 아니면
-                    {
-                        int date = cal.get(Calendar.DAY_OF_WEEK);
-                        day_db = day_print(date); //요일 원하는 형태로 바꿈
-                        date_db = " "+cal.get(Calendar.DATE)+" ";
-                        content_db = content.getText().toString().trim(); //형변환
-                        mDbOpenHelper.insertColumn(day_db, date_db, content_db, nowDay);
-                    }
-                }
-
-                break;
+                //업데이트하기
+                mDbOpenHelper.updateColumn(iCursor.getInt(0), iCursor.getString(1),
+                        iCursor.getString(2), content.getText().toString().trim(), nowDay);
+            }
+            else //같은 날짜 아니면
+            {
+                int date = cal.get(Calendar.DAY_OF_WEEK);
+                day_db = day_print(date); //요일 원하는 형태로 바꿈
+                date_db = " "+cal.get(Calendar.DATE)+" ";
+                content_db = content.getText().toString().trim(); //형변환
+                mDbOpenHelper.insertColumn(day_db, date_db, content_db, nowDay);
+            }
         }
         /* UI - 이전 화면으로 전환 */
         Intent intent = new Intent(getApplicationContext(), second.class);
@@ -112,33 +99,25 @@ public class write extends AppCompatActivity {
         mDbOpenHelper.close();
     }
 
-    public String day_print(int day)
-    {
-        String day_return=" ";
 
+    public String day_print(int day) {
         switch (day) {
             case 1:
-                day_return = "MON";
-                break;
+                return "MON";
             case 2:
-                day_return = "TUE";
-                break;
+                return "TUE";
             case 3:
-                day_return = "WED";
-                break;
+                return "WED";
             case 4:
-                day_return = "THU";
-                break;
+                return "THU";
             case 5:
-                day_return = "FRI";
-                break;
+                return "FRI";
             case 6:
-                day_return = "SAT";
-                break;
+                return "SAT";
             case 7:
-                day_return = "SUN";
-                break;
+                return "SUN";
+            default:
+                return " ";
         }
-        return day_return;
     }
 }

@@ -44,13 +44,10 @@ public class update extends AppCompatActivity {
 
     //업데이트
     public void onClick(View view) {
-        switch (view.getId()) {
-            /* 완료 버튼 눌리면 */
-            case R.id.done_btn:
-                Log.d("test","확인********"+intent.getStringExtra("Time")+"**********"+intent.getStringExtra("Content"));
-                mDbOpenHelper.updateColumn(intent.getIntExtra("Id",10000), intent.getStringExtra("Day"), intent.getStringExtra("Date"), my_write_update.getText().toString().trim(), intent.getStringExtra("Time"));
-                break;
-        }
+        /* 완료 버튼 눌리면 */
+        Log.d("test","확인********"+intent.getStringExtra("Time")+"**********"+intent.getStringExtra("Content"));
+        mDbOpenHelper.updateColumn(intent.getIntExtra("Id",10000), intent.getStringExtra("Day"), intent.getStringExtra("Date"), my_write_update.getText().toString().trim(), intent.getStringExtra("Time"));
+
         /* UI - 이전 화면으로 전환 */
         Intent intent = new Intent(getApplicationContext(), second.class);
         startActivity(intent);

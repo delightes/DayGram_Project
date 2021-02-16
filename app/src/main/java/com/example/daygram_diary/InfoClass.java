@@ -3,13 +3,7 @@ package com.example.daygram_diary;
 
 public class InfoClass {
     public int _id;
-    public String day;
-    public String date;
-    public String content;
-    public String time;
-
-    //생성자
-    public InfoClass(){}
+    public String day, date, content, time;
 
     /**
      * 실질적으로 값을 입력할 때 사용되는 생성자(getter and setter)

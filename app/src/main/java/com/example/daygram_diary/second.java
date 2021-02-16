@@ -29,14 +29,12 @@ public class second extends AppCompatActivity {
     private InfoClass mInfoClass;
     private ArrayList<InfoClass> mInfoArray;
     private CustomAdapter mAdapter;
-    private Cursor CheckCursor;
-    private Cursor PutCursor;
+    private Cursor CheckCursor, PutCursor;
+    private ListView mListView;
 
     /*
      * 레이아웃 세팅하는 메소드
      */
-    private ListView mListView;
-
     private void setLayout() {
         mListView = (ListView) findViewById(R.id.text_list); //리스트뷰 변수에 담아오기
     }
@@ -57,6 +55,7 @@ public class second extends AppCompatActivity {
         second_today.setText(nowDay);
 
         setLayout(); //리스트뷰 실제로 담음.
+
 
         // 2. 데이터 베이스 생성 및 오픈
         Log.d(TAG, "****************************데이터 베이스 열음****************************");

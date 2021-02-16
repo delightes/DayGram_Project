@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -88,12 +87,9 @@ public class CustomAdapter extends BaseAdapter {
      * ViewHolder Class 생성
      */
     private class ViewHolder {
-        LinearLayout linear_1;
-        LinearLayout linear_2;
+        LinearLayout linear_1, linear_2;
         RelativeLayout list_container;
-        TextView date;
-        TextView day;
-        TextView content;
+        TextView date, day, content;
         ImageView listitem;
     }
 }
